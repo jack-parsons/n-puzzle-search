@@ -16,22 +16,22 @@ class Main {
                 throw new IllegalArgumentException(String.format("Invalid search: %s", args[0]));
         }
         String[] initialBoard = {
-                "-----",
-                "C----",
-                "B----",
-                "A---☺",
+                "----",
+                "----",
+                "----",
+                "ABC☺",
         };
         NPuzzleState goalState = new NPuzzleState(new String[] {
-                "-----",
-                "C----",
-                "B----",
-                "A☺---",
+                "----",
+                "-A--",
+                "-B--",
+                "-C--",
         });
         Node initialNode = new NPuzzleNode(null, null, new NPuzzleState(initialBoard), (NPuzzleState state) -> {
             for (int x = 0; x < state.getWidth(); x++) {
                 for (int y = 0; y < state.getHeight(); y++) {
                     Vector pos = new Vector(x, y);
-                    if (goalState.getCell(pos) != state.getCell(pos)) {
+                    if (state.getCell(pos) != CellType.AGENT && goalState.getCell(pos) != state.getCell(pos)) {
                         return false;
                     }
                 }

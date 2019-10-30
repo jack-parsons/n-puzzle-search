@@ -11,7 +11,7 @@ public abstract class Search {
         addNode(initialNode);
         Node currentNode;
         while ((currentNode=getNextNode()) != null) {
-            System.out.println(currentNode);
+//            System.out.println(currentNode);
             if (currentNode.goalTest()) {
                 return currentNode;
             }

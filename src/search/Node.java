@@ -1,5 +1,6 @@
 package src.search;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,13 +25,14 @@ public abstract class Node implements Comparable<Node> {
             }
             curNode=curNode.getParent();
         }
+        Collections.reverse(actions);
         return actions;
     }
 
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
-        System.out.println(String.format("Depth: %d\n%s" ,getDepth(), getState()));
+        System.out.println(String.format("Depth: %d\nAction: %s\n%s", getDepth(), getAction(), getState()));
         return s.toString();
     }
 }

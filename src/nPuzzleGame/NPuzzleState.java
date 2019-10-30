@@ -70,8 +70,8 @@ class NPuzzleState extends State {
      * @return The new Node
      */
     public NPuzzleState moveActor(Vector newLoc) {
-        int newX = actorVector.y+newLoc.y;
-        int newY = actorVector.x+newLoc.x;
+        int newX = actorVector.x+newLoc.x;
+        int newY = actorVector.y+newLoc.y;
 
         if (posInRange(new Vector(newX, newY))) {
             CellType[][] newBoard = copyBoard();
