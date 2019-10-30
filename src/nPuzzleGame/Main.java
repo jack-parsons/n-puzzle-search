@@ -12,6 +12,9 @@ class Main {
             case "BFS":
                 search = new BFS();
                 break;
+            case "IDS":
+                search = new IDS();
+                break;
             default:
                 throw new IllegalArgumentException(String.format("Invalid search: %s", args[0]));
         }
