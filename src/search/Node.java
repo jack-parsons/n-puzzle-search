@@ -26,4 +26,11 @@ public abstract class Node implements Comparable<Node> {
         }
         return actions;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        System.out.println(String.format("Depth: %d\n%s" ,getDepth(), getState()));
+        return s.toString();
+    }
 }

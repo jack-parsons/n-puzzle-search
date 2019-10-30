@@ -11,13 +11,13 @@ public abstract class Search {
         addNode(initialNode);
         Node currentNode;
         while ((currentNode=getNextNode()) != null) {
+            System.out.println(currentNode);
+            if (currentNode.goalTest()) {
+                return currentNode;
+            }
             List<Node> l = currentNode.getSuccessors();
             Collections.shuffle(l);
             for (Node newNode : l) {
-//                System.out.println(newNode.getState();
-                if (newNode.goalTest()) {
-                    return newNode;
-                }
                 addNode(newNode);
             }
         }

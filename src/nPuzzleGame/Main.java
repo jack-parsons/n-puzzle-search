@@ -25,7 +25,7 @@ class Main {
                 "-----",
                 "C----",
                 "B----",
-                "A--☺-",
+                "A☺---",
         });
         Node initialNode = new NPuzzleNode(null, null, new NPuzzleState(initialBoard), (NPuzzleState state) -> {
             for (int x = 0; x < state.getWidth(); x++) {

@@ -82,4 +82,16 @@ class NPuzzleState extends State {
             return null;
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (int y = 0; y < this.board.length; y++) {
+            for (int x = 0; x < this.board[0].length; x++) {
+                s.append(getCell(new Vector(x, y)).toString());
+            }
+            s.append("\n");
+        }
+        return s.toString();
+    }
 }
