@@ -16,16 +16,16 @@ class Main {
                 throw new IllegalArgumentException(String.format("Invalid search: %s", args[0]));
         }
         String[] initialBoard = {
-                "    ",
-                "C   ",
-                "B   ",
-                "A ☺ ",
+                "-----",
+                "C----",
+                "B----",
+                "A---☺",
         };
         NPuzzleState goalState = new NPuzzleState(new String[] {
-                "    ",
-                "C   ",
-                "B   ",
-                "A☺  ",
+                "-----",
+                "C----",
+                "B----",
+                "A--☺-",
         });
         Node initialNode = new NPuzzleNode(null, null, new NPuzzleState(initialBoard), (NPuzzleState state) -> {
             for (int x = 0; x < state.getWidth(); x++) {
@@ -37,13 +37,13 @@ class Main {
                 }
             }
             return true;
-        });
+        }, 0);
         try {
             for (Action action : search.findSolution(initialNode).getActions()) {
                 System.out.println(action);
             }
-        } catch (Exception e) {
-
+        } catch (NoSolutionException e) {
+            System.out.println("No Solution found...");
         }
     }
 }

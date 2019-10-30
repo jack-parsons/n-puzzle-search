@@ -13,8 +13,8 @@ class NPuzzleState extends State {
 
     NPuzzleState(String[] board) {
         this.board = new CellType[board.length][board[0].length()];
-        for (int x = 0; x < this.board.length; x++) {
-            for (int y = 0; y < this.board[0].length; y++) {
+        for (int y = 0; y < this.board.length; y++) {
+            for (int x = 0; x < this.board[0].length; x++) {
                 this.board[y][x] = CellType.inverseType(board[y].charAt(x));
             }
         }
@@ -30,8 +30,8 @@ class NPuzzleState extends State {
     }
 
     public Vector findActorVector() {
-        for (int x = 0; x < board.length; x++) {
-            for (int y = 0; y < board[0].length; y++) {
+        for (int y = 0; y < this.board.length; y++) {
+            for (int x = 0; x < this.board[0].length; x++) {
                 Vector pos = new Vector(x, y);
                 if (getCell(pos) == CellType.AGENT) {
                     this.actorVector = pos;
@@ -48,8 +48,8 @@ class NPuzzleState extends State {
 
     private CellType[][] copyBoard() {
         CellType[][] newBoard = new CellType[board.length][board[0].length];
-        for (int x = 0; x < board.length; x++) {
-            for (int y = 0; y < board[0].length; y++) {
+        for (int y = 0; y < this.board.length; y++) {
+            for (int x = 0; x < this.board[0].length; x++) {
                 newBoard[y][x] = board[y][x];
             }
         }

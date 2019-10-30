@@ -10,6 +10,7 @@ public abstract class Node implements Comparable<Node> {
     public abstract Comparable getEstimate();
     public abstract List<Node> getSuccessors();
     public abstract boolean goalTest();
+    public abstract int getDepth();
     @Override
     public int compareTo(Node o) {
         return this.getEstimate().compareTo(o.getEstimate());
@@ -17,8 +18,11 @@ public abstract class Node implements Comparable<Node> {
     public List<Action> getActions() {
         List<Action> actions = new LinkedList<>();
         Node curNode = this;
-        while ((curNode=curNode.getParent()) != null) {
-            actions.add(curNode.getAction());
+        while (curNode != null) {
+            if (curNode.getAction() != null) {
+                actions.add(curNode.getAction());
+            }
+            curNode=curNode.getParent();
         }
         return actions;
     }

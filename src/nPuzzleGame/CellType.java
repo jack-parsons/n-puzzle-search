@@ -3,7 +3,7 @@ package src.nPuzzleGame;
 enum CellType {
     AGENT('☺'),
     A('A'), B('B'), C('C'),
-    EMPTY(' ');
+    EMPTY('-');
 
     private char output;
 

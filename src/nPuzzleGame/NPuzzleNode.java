@@ -13,12 +13,19 @@ class NPuzzleNode extends Node {
     private Action action;
     private NPuzzleState state;
     private Function<NPuzzleState, Boolean> goalFunction;
+    private int depth;
 
-    NPuzzleNode(Node parent, Action action, NPuzzleState state, Function<NPuzzleState, Boolean> goalFunction) {
+    NPuzzleNode(Node parent, Action action, NPuzzleState state, Function<NPuzzleState, Boolean> goalFunction, int depth) {
         this.parent = parent;
         this.action = action;
         this.state = state;
         this.goalFunction = goalFunction;
+        this.depth = depth;
+    }
+
+    @Override
+    public int getDepth() {
+        return depth;
     }
 
     @Override
@@ -55,7 +62,7 @@ class NPuzzleNode extends Node {
             NPuzzleState newState = state.moveActor(move);
             // Check new state is valid
             if (newState != null) {
-                successors.add(new NPuzzleNode(this, new NPuzzleAction(move), newState, goalFunction));
+                successors.add(new NPuzzleNode(this, new NPuzzleAction(move), newState, goalFunction, getDepth()+1));
             }
         }
         return successors;
