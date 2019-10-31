@@ -2,8 +2,12 @@ package src.nPuzzleGame;
 
 import src.search.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class NPuzzleState extends State {
     private CellType[][] board;
+//    private Map<Vector, CellType> cellTypeMap = new HashMap<>();
     private Vector actorVector;
 
     NPuzzleState(CellType[][] board) {
@@ -42,8 +46,8 @@ class NPuzzleState extends State {
         return null;
     }
 
-    public CellType getCell(Vector Vector) {
-        return board[Vector.y][Vector.x];
+    public CellType getCell(Vector pos) {
+        return board[pos.y][pos.x];
     }
 
     private CellType[][] copyBoard() {
@@ -65,13 +69,13 @@ class NPuzzleState extends State {
     }
 
     /**
-     * Generate a move for the actor to make, and return the new state
-     * @param newLoc
-     * @return The new Node
+     * Generate a move for the agent to make, and return the new state
+     * @param moveV The displacement vector representing the agent's move
+     * @return The new NPuzzleState when the agent is moved
      */
-    public NPuzzleState moveActor(Vector newLoc) {
-        int newX = actorVector.x+newLoc.x;
-        int newY = actorVector.y+newLoc.y;
+    public NPuzzleState moveAgent(Vector moveV) {
+        int newX = actorVector.x+moveV.x;
+        int newY = actorVector.y+moveV.y;
 
         if (posInRange(new Vector(newX, newY))) {
             CellType[][] newBoard = copyBoard();

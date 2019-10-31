@@ -6,4 +6,8 @@ class Vector {
         this.x = x;
         this.y = y;
     }
+
+    public int manhattan(Vector o) {
+        return Math.abs(o.x-this.x) + Math.abs(o.y-this.y);
+    }
 }

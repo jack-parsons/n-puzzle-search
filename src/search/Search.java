@@ -16,7 +16,7 @@ public abstract class Search {
                 return currentNode;
             }
             List<Node> l = currentNode.getSuccessors();
-            Collections.shuffle(l);
+//            Collections.shuffle(l);
             for (Node newNode : l) {
                 addNode(newNode);
             }

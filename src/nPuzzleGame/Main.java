@@ -15,6 +15,9 @@ class Main {
             case "IDS":
                 search = new IDS();
                 break;
+            case "ASTAR":
+                search = new AStar();
+                break;
             default:
                 throw new IllegalArgumentException(String.format("Invalid search: %s", args[0]));
         }
@@ -30,17 +33,7 @@ class Main {
                 "-B--",
                 "-C--",
         });
-        Node initialNode = new NPuzzleNode(null, null, new NPuzzleState(initialBoard), (NPuzzleState state) -> {
-            for (int x = 0; x < state.getWidth(); x++) {
-                for (int y = 0; y < state.getHeight(); y++) {
-                    Vector pos = new Vector(x, y);
-                    if (state.getCell(pos) != CellType.AGENT && goalState.getCell(pos) != state.getCell(pos)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }, 0);
+        Node initialNode = new NPuzzleNode(null, null, new NPuzzleState(initialBoard), goalState, 0, 0);
         try {
             for (Action action : search.findSolution(initialNode).getActions()) {
                 System.out.println(action);
