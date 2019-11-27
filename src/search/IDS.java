@@ -4,29 +4,23 @@ import java.util.Stack;
 
 public class IDS extends Search {
     private Stack<Node> fringe = new Stack<>();
-    private int depthLimit = 0;
+    private int depthLimit = 1;
 
-    public Node getNextNode() {
-        if (!fringe.empty())
-            return fringe.pop();
-        else
-            return null;
-    }
+    public Node getNextNode() {return null;}
 
-    public void addNode(Node node) {
-        if (node.getDepth() <= depthLimit)
-            fringe.add(node);
-    }
+    public void addNode(Node node) {}
 
     @Override
     public Solution findSolution(Node initialNode) throws NoSolutionException {
         int nodesExplored = 0;
         while (true) {
             try {
-                Solution sol = super.findSolution(initialNode);
+                Search search = new DLS(depthLimit);
+                Solution sol = search.findSolution(initialNode);
                 nodesExplored += sol.getNodesExplored();
                 return new Solution(sol.getFinalNode(), nodesExplored);
             } catch (NoSolutionException e) {
+                // If no solution is found, explore one deeper
                 depthLimit++;
             }
         }

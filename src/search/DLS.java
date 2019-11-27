@@ -2,8 +2,13 @@ package src.search;
 
 import java.util.Stack;
 
-public class DFS extends Search {
+public class DLS extends Search {
     private Stack<Node> fringe = new Stack<>();
+    private int depthLimit;
+
+    DLS (int depthLimit) {
+        this.depthLimit = depthLimit;
+    }
 
     /**
      * DFS needs the order the nodes are added to the queue to be random for an infinite depth
@@ -15,10 +20,14 @@ public class DFS extends Search {
     }
 
     public Node getNextNode() {
-        return fringe.pop();
+        if (!fringe.empty())
+            return fringe.pop();
+        else
+            return null;
     }
 
     public void addNode(Node node) {
-        fringe.add(node);
+        if (node.getDepth() <= depthLimit)
+            fringe.add(node);
     }
 }
