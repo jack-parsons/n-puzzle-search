@@ -18,10 +18,14 @@ public class IDS extends Search {
             fringe.add(node);
     }
 
-    public Node findSolution(Node initialNode) throws NoSolutionException {
+    @Override
+    public Solution findSolution(Node initialNode) throws NoSolutionException {
+        int nodesExplored = 0;
         while (true) {
             try {
-                return super.findSolution(initialNode);
+                Solution sol = super.findSolution(initialNode);
+                nodesExplored += sol.getNodesExplored();
+                return new Solution(sol.getFinalNode(), nodesExplored);
             } catch (NoSolutionException e) {
                 depthLimit++;
             }

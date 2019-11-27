@@ -2,7 +2,9 @@ package src.nPuzzleGame;
 
 import src.search.*;
 
-class Main {
+import java.util.List;
+
+class SearchTest {
     public static void main(String[] args) {
         Search search;
         switch (args[0]) {
@@ -35,9 +37,13 @@ class Main {
         });
         Node initialNode = new NPuzzleNode(null, null, new NPuzzleState(initialBoard), goalState, 0, 0);
         try {
-            for (Action action : search.findSolution(initialNode).getActions()) {
+            Solution sol = search.findSolution(initialNode);
+            List<Action> actions = sol.getActions();
+            for (Action action : actions) {
                 System.out.println(action);
             }
+            System.out.println("Nodes explored: " + sol.getNodesExplored());
+            System.out.println("Depth reached: " + actions.size());
         } catch (NoSolutionException e) {
             System.out.println("No Solution found...");
         }

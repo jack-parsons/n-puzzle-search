@@ -56,6 +56,11 @@ class NPuzzleNode extends Node {
         return state;
     }
 
+    @Override
+    public Node copy() {
+        return new NPuzzleNode(parent, action, state.moveAgent(new Vector(0, 0)), goalState, depth, costSoFar);
+    }
+
     private static Vector findCell(CellType c, NPuzzleState state) {
         for (int x = 0; x < state.getWidth(); x++) {
             for (int y = 0; y < state.getHeight(); y++) {

@@ -12,6 +12,7 @@ public abstract class Node implements Comparable<Node> {
     public abstract List<Node> getSuccessors();
     public abstract boolean goalTest();
     public abstract int getDepth();
+    public abstract Node copy();
     @Override
     public int compareTo(Node o) {
         return this.getEstimate().compareTo(o.getEstimate());

@@ -7,16 +7,27 @@ public abstract class Search {
     public abstract Node getNextNode();
     public abstract void addNode(Node node);
 
-    public Node findSolution(Node initialNode) throws NoSolutionException {
+    boolean isRandom() {
+        return false;
+    }
+
+    public Solution findSolution(Node initialNode) throws NoSolutionException {
+        return findSolution(initialNode, isRandom());
+    }
+
+    public Solution findSolution(Node initialNode, boolean random) throws NoSolutionException {
+        int i = 0;
         addNode(initialNode);
         Node currentNode;
         while ((currentNode=getNextNode()) != null) {
-//            System.out.println(currentNode);
+            i++;
             if (currentNode.goalTest()) {
-                return currentNode;
+                return new Solution(currentNode, i);
             }
             List<Node> l = currentNode.getSuccessors();
-//            Collections.shuffle(l);
+
+            if (random) Collections.shuffle(l);
+
             for (Node newNode : l) {
                 addNode(newNode);
             }
