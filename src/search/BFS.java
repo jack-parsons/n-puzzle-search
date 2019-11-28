@@ -13,4 +13,19 @@ public class BFS extends Search {
     public void addNode(Node node) {
         fringe.add(node);
     }
+
+    @Override
+    public String getFringeOutput() {
+        StringBuilder s = new StringBuilder();
+        Object[] f2 = fringe.toArray();
+        for (Object n : f2) {
+            s.append(n.toString());
+        }
+        return s.toString();
+    }
+
+    @Override
+    public Node[] getFringe() {
+        return fringe.toArray(new Node[0]);
+    }
 }

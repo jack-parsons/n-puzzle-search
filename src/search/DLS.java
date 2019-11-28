@@ -10,15 +10,6 @@ public class DLS extends Search {
         this.depthLimit = depthLimit;
     }
 
-    /**
-     * DFS needs the order the nodes are added to the queue to be random for an infinite depth
-     * This is to stop it getting trapped in a cycle, for example contiguously going left.
-     */
-    @Override
-    boolean isRandom() {
-        return true;
-    }
-
     public Node getNextNode() {
         if (!fringe.empty())
             return fringe.pop();
@@ -29,5 +20,20 @@ public class DLS extends Search {
     public void addNode(Node node) {
         if (node.getDepth() <= depthLimit)
             fringe.add(node);
+    }
+
+    @Override
+    public String getFringeOutput() {
+        StringBuilder s = new StringBuilder();
+        Object[] f2 = fringe.toArray();
+        for (Object n : f2) {
+            s.append(n.toString());
+        }
+        return s.toString();
+    }
+
+    @Override
+    public Node[] getFringe() {
+        return fringe.toArray(new Node[0]);
     }
 }

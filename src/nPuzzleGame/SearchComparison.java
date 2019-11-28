@@ -1,7 +1,5 @@
 package src.nPuzzleGame;
 
-import src.nPuzzleGame.NPuzzleNode;
-import src.nPuzzleGame.NPuzzleState;
 import src.search.*;
 
 import java.util.Random;
@@ -22,33 +20,58 @@ public class SearchComparison {
 
     private static NPuzzleState shuffleState(NPuzzleState state, int shuffleDepth) {
         Random rand = new Random();
-        for (int i = 0; i < shuffleDepth; i++) {
+        int actualD = 0;
+        NPuzzleState iState = state;
+        while (actualD < shuffleDepth) {
             NPuzzleState newState = state.moveAgent(getMoves()[rand.nextInt(getMoves().length)]);
             state = newState==null ? state : newState;
+
+            Node initialNode = new NPuzzleNode(null, null,
+                    iState, state,0, 0);
+            try {
+                actualD = (new AStar()).findSolution(initialNode.copy()).getActions().size();
+            } catch (NoSolutionException e) {
+                e.printStackTrace();
+            }
         }
         return state;
     }
 
+    private static Search[] getSearches() {
+        return new Search[]{new BFS(), new IDS(), new AStar()};
+    }
+
     public static void main(String[] args) {
-        Search[] searches = {new DFS(), new BFS(), new IDS(), new AStar()};
-        for (int d = 0; d < 100; d ++) {
-            Node initialNode = new NPuzzleNode(null, null,
-                    new NPuzzleState(SearchComparison.generateStartingState()),
-                    shuffleState(new NPuzzleState(SearchComparison.generateStartingState()), d),
-                    0, 0);
-            int actualD = 0;
-            for (Search search : searches) {
-                try {
-                    Solution sol = search.findSolution(initialNode.copy());
-                    actualD = sol.getActions().size();
-                    System.out.print(sol.getNodesExplored() + "\t");
-                } catch (NoSolutionException e) {
-                    System.out.println("No solution");
-                    return;
+        boolean timeComplexity = false;
+        int maxD = 10, iters = 100;
+        for (int d = 1; d <= maxD; d++) {
+            int[] averages = new int[getSearches().length];
+            for (int i = 0; i < iters; i++){
+                Search[] searches = getSearches();
+                Node initialNode = new NPuzzleNode(null, null,
+                        new NPuzzleState(SearchComparison.generateStartingState()),
+                        shuffleState(new NPuzzleState(SearchComparison.generateStartingState()), d),
+                        0, 0);
+
+                for (int s = 0; s < searches.length; s ++) {
+                    try {
+                        Solution sol = searches[s].findSolution(initialNode.copy());
+                        if (timeComplexity)
+                            averages[s] += sol.getNodesGenerated();
+                        else
+                            averages[s] += sol.getNodesStored();
+//                        if (s==0)
+//                        System.out.println(sol.getNodesGenerated());
+                    } catch (NoSolutionException e) {
+                        System.out.println("No solution");
+                        return;
+                    }
                 }
             }
-            System.out.print(actualD);
-            System.out.println();
+            System.out.print("\n" + d + "\t");
+            for (int s = 0; s < getSearches().length; s ++) {
+                System.out.print(averages[s]/iters + "\t");
+            }
         }
     }
 }

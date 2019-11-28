@@ -40,10 +40,11 @@ class SearchTest {
             Solution sol = search.findSolution(initialNode);
             List<Action> actions = sol.getActions();
             for (Action action : actions) {
-                System.out.println(action);
+                System.out.print(action + " ");
             }
-            System.out.println("Nodes explored: " + sol.getNodesExplored());
-            System.out.println("Depth reached: " + actions.size());
+            System.out.println("\nNodes generated: " + sol.getNodesGenerated());
+            System.out.println("Depth: " + actions.size());
+            System.out.println("Space: " + sol.getNodesStored());
         } catch (NoSolutionException e) {
             System.out.println("No Solution found...");
         }

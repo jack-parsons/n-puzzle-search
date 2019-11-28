@@ -33,7 +33,17 @@ public abstract class Node implements Comparable<Node> {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
-        System.out.println(String.format("Depth: %d\nAction: %s\n%s", getDepth(), getAction(), getState()));
+        System.out.println(String.format("Depth:%d, Action:%s\nCost estimate:%s\n%s", getDepth(), getAction(), getEstimate(), getState()));
         return s.toString();
+    }
+
+    public List<Node> getParents() {
+        List<Node> ps = new LinkedList<>();
+        Node cur = this;
+        while (cur.getParent() != null) {
+            ps.add(cur.getParent());
+            cur = cur.getParent();
+        }
+        return ps;
     }
 }
